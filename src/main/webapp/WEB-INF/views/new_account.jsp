@@ -1,30 +1,33 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <%@ include file="../common/cssfiles.jsp"%>
-    <title>New Account</title>
+    <title><spring:message code="label.title"/></title>
 </head>
 <body>
-<form name="accountForm" method="post" action="saveAccount">
+<h2>Create New Account</h2>
+<form:form action="saveAccount" modelAttribute="account">
     <table>
         <tr>
-            <td>Account #: </td>
-            <td><input type="text" name="accountNo"/></td>
+            <td><spring:message code="label.accountNo" />: </td>
+            <td><form:input path="accountNo" size="30" /></td>
         </tr>
         <tr>
-            <td>Account Holder Name #: </td>
-            <td><input type="text" name="accountHolderName"/></td>
+            <td><spring:message code="label.accountHolderName" />: </td>
+            <td><form:input path="accountHolderName" size="30" /></td>
         </tr>
         <tr>
-            <td>Account Balance : </td>
-            <td><input type="text" name="balance"/></td>
+            <td><spring:message code="label.balance" />: </td>
+            <td><form:input path="balance" size="30" /></td>
         </tr>
         <tr>
-            <td colspan="2" align="center"></td>
-            <td><input type="submit" value="Create Account" name="btnSubmit"/></td>
+            <td colspan="2" align="center">
+                <input type="submit" value="Create Account" name="btnSubmit" /> </td>
         </tr>
     </table>
-</form>
+</form:form>
 <%@ include file="../common/jsfiles.jsp"%>
 </body>
 </html>

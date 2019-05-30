@@ -1,10 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <%@ include file="../common/cssfiles.jsp"%>
     <title>New Account</title>
 </head>
 <body>
-<form name="accountForm" action="showAccount">
+<form name="accountForm" method="post" action="saveAccount">
     <table>
         <tr>
             <td>Account #: </td>
@@ -24,5 +25,6 @@
         </tr>
     </table>
 </form>
+<%@ include file="../common/jsfiles.jsp"%>
 </body>
 </html>

@@ -6,11 +6,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hello ${name}!</title>
-    <link href="${contextPath}/scripts/css/main.css" rel="stylesheet">
+    <title>Test View </title>
 </head>
 <body>
-<h2 class="hello-title">Hello ${name}!</h2>
-<script src="${contextPath}/scripts/js/main.js"></script>
+<h2 class="hello-title">${myname}</h2>
+
 </body>
 </html>

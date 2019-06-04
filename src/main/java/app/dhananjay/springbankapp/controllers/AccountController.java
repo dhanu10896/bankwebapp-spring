@@ -1,18 +1,30 @@
 package app.dhananjay.springbankapp.controllers;
 
 import app.dhananjay.springbankapp.model.Account;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static app.dhananjay.springbankapp.config.ViewNameConstants.*;
 
 @Controller
 public class AccountController {
+
+    @InitBinder
+    public void initBinder(WebDataBinder dataBinder) {
+        StringTrimmerEditor ste = new StringTrimmerEditor(true);
+        dataBinder.registerCustomEditor(String.class, ste);
+    }
 
     @RequestMapping({"/", "/home"})
     public String showHomePage() {
@@ -25,13 +37,24 @@ public class AccountController {
         return VIEW_NEW_ACCOUNT_PAGE;
     }
 
-    //using databinding
+
+    //using hibernate validator.
     @RequestMapping(value = "/saveAccount", method = RequestMethod.POST)
-    public String saveAccount(Model model, Account account) {
-        model.addAttribute("account", account);
+    public String saveAccount(@Valid @ModelAttribute("account") Account account,
+                              BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return VIEW_NEW_ACCOUNT_PAGE;
+        }
         return "show_account";
     }
 
+//    //using databinding
+//    @RequestMapping(value = "/saveAccount", method = RequestMethod.POST)
+//    public String saveAccount(Model model, Account account) {
+//        model.addAttribute("account", account);
+//        return "show_account";
+//    }
 
     //2.using ReuqestParam
 //    @RequestMapping(value = "/saveAccount", method = RequestMethod.POST)

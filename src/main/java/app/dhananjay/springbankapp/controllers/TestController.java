@@ -21,4 +21,12 @@ public class TestController {
         return "test_request_mapping";
     }
 
+    /**
+     * 404 page.
+     */
+
+    @RequestMapping("*")
+    public String fallBackPage() {
+        return "404";
+    }
 }

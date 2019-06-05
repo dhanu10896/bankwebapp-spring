@@ -96,7 +96,14 @@
       <scope>provided</scope>
     </dependency>
 
-    <!--Hibernate Validator -->
+    <!--Hibernate -->
+    <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>5.4.3.Final</version>
+    </dependency>
+
     <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
     <dependency>
       <groupId>org.hibernate</groupId>
@@ -122,6 +129,13 @@
       <version>6.0.16.Final</version>
       <type>pom</type>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-c3p0 -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-c3p0</artifactId>
+      <version>5.4.3.Final</version>
+    </dependency>
+
     <!-- Expression language -->
     <dependency>
       <groupId>javax.el</groupId>
@@ -129,11 +143,17 @@
       <version>3.0.0</version>
     </dependency>
 
+    <!--MySQL -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>6.0.4</version>
+    </dependency>
 
   </dependencies>
 
   <build>
-    <finalName>webapp</finalName>
+    <finalName>bankwebapp</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
@@ -167,5 +187,15 @@
         </plugin>
       </plugins>
     </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>8</source>
+          <target>8</target>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 </project>

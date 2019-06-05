@@ -1,7 +1,8 @@
 package app.dhananjay.springbankapp.controllers;
 
 import app.dhananjay.springbankapp.model.Account;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
+import app.dhananjay.springbankapp.services.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,16 +10,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import static app.dhananjay.springbankapp.config.ViewNameConstants.*;
 
 @Controller
 public class AccountController {
+
+    @Autowired
+    AccountService accountService;
 
     @InitBinder
     public void initBinder(WebDataBinder dataBinder) {
@@ -34,7 +35,7 @@ public class AccountController {
     @RequestMapping("/new")
     public String newAccount(Model model) {
         model.addAttribute("account", new Account());
-        return VIEW_NEW_ACCOUNT_PAGE;
+        return VIEW_ACCOUNT_FORM_PAGE;
     }
 
 
@@ -44,9 +45,12 @@ public class AccountController {
                               BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            return VIEW_NEW_ACCOUNT_PAGE;
+            return VIEW_ACCOUNT_FORM_PAGE;
+        } else {
+            accountService.saveAccount(account);
+            return "redirect:/list";
+
         }
-        return "show_account";
     }
 
 //    //using databinding
@@ -93,5 +97,24 @@ public class AccountController {
     @RequestMapping("/showAccount")
     public String showAccount() {
         return "show_account";
+    }
+
+    @GetMapping("/list")
+    public String listAccounts(Model model) {
+        model.addAttribute("accounts",accountService.getAccounts());
+        return "list_accounts";
+    }
+
+    @GetMapping("/edit")
+    public String updateAccount(@RequestParam("accountNo") Integer accountNo, Model model) {
+        Account account = accountService.getAccount(accountNo);
+        model.addAttribute("account", account);
+        return VIEW_ACCOUNT_FORM_PAGE;
+    }
+
+    @GetMapping("/delete")
+    public String deleteAccount(@RequestParam("accountNo") Integer accountNo, Model model) {
+        accountService.deleteAccount(accountNo);
+        return "redirect:/list";
     }
 }

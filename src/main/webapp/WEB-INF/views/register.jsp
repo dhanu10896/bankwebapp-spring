@@ -5,13 +5,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%@ include file="../common/cssfiles.jsp"%>
+    <%@ include file="header.jsp"%>
     <meta charset="UTF-8">
     <title>user </title>
 </head>
 <body>
-<h2 class="hello-title">Welcome to Spring Bank</h2>
+<h2 class="hello-title">Details:</h2>
+<h4>root</h4>
+<h4>pass</h4>
 
-<%@ include file="../common/jsfiles.jsp"%>
+<%@ include file="footer.jsp"%>
 </body>
 </html>

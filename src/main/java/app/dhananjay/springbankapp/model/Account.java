@@ -30,7 +30,7 @@ public class Account {
     private Date dateOfBirth;
 
     @NotNull(message = "PS code is requried.")
-    @PSCode(value = "DG", message = "PS Code should start with DG")
+    @PSCode(value = "DN", message = "PS Code should start with DN")
     private String psCode;
 
     public Account() {

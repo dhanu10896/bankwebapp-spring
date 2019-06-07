@@ -3,7 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
-    <%@ include file="../common/cssfiles.jsp"%>
+    <%@ include file="header.jsp"%>
     <title><spring:message code="label.title" /></title>
 </head>
 <body>
@@ -19,6 +19,6 @@
 <p><spring:message code="label.accountType" />: ${account.accountType} </p>
 <p><spring:message code="label.dob" />: ${account.dateOfBirth} </p>
 <p><spring:message code="label.psCode" />: ${account.psCode} </p>
-<%@ include file="../common/jsfiles.jsp"%>
+<%@ include file="footer.jsp"%>
 </body>
 </html>

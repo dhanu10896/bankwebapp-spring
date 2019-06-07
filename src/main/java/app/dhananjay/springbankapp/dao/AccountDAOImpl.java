@@ -29,13 +29,32 @@ public class AccountDAOImpl implements AccountDAO {
         accountEntity.setPsCode(account.getPsCode());
         try {
             Session session = sessionFactory.getCurrentSession();
-            session.saveOrUpdate(accountEntity);
+            session.save(accountEntity);
         } catch (Exception e) {
             e.printStackTrace();
             saveFlag = false;
         }
         return saveFlag;
     }
+
+    @Override
+    public boolean updateAccount(Account account) {
+        boolean saveFlag = true;
+        AccountEntity accountEntity = new AccountEntity();
+        accountEntity.setAccNo(account.getAccountNo());
+        accountEntity.setAccHolderName(account.getAccountHolderName());
+        accountEntity.setBalance(account.getBalance());
+        accountEntity.setAccountType(account.getAccountType());
+        accountEntity.setDateOfBirth(account.getDateOfBirth());
+        accountEntity.setPsCode(account.getPsCode());
+        try {
+            Session session = sessionFactory.getCurrentSession();
+            session.update(accountEntity);
+        } catch (Exception e) {
+            e.printStackTrace();
+            saveFlag = false;
+        }
+        return saveFlag;    }
 
     @Override
     public List<Account> getAccounts() {
@@ -66,7 +85,9 @@ public class AccountDAOImpl implements AccountDAO {
         Account account = new Account();
         try {
             Session session = sessionFactory.getCurrentSession();
-            AccountEntity accountEntity = session.load(AccountEntity.class, accountNo);
+            AccountEntity accountEntity = session.get(AccountEntity.class, accountNo);
+
+            if (accountEntity == null) return null;
 
             account.setAccountNo(accountEntity.getAccNo());
             account.setAccountHolderName(accountEntity.getAccHolderName());

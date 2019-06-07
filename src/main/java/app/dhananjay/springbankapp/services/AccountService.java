@@ -7,6 +7,8 @@ import java.util.List;
 public interface AccountService {
     public boolean saveAccount(Account account);
 
+    public boolean updateAccount(Account account);
+
     public List<Account> getAccounts();
 
     public Account getAccount(Integer accountNo);

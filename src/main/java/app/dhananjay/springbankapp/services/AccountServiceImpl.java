@@ -22,6 +22,12 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional
+    public boolean updateAccount(Account account) {
+        return accountDAO.updateAccount(account);
+    }
+
+    @Override
+    @Transactional
     public List<Account> getAccounts() {
         return accountDAO.getAccounts();
     }

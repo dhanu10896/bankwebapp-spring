@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <%@ include file="../common/cssfiles.jsp"%>
@@ -13,13 +14,14 @@
 </head>
 <body>
 <h2>Please Fill Up The Form Details</h2>
-<form:form action="saveAccount" modelAttribute="account">
+<form:form action="${actionMethod}" modelAttribute="account">
     <table>
         <tr>
             <td><spring:message code="label.accountNo" />: </td>
             <td>
                 <form:input path="accountNo" size="30" />
                 <form:errors path="accountNo" cssClass="error" />
+                <b><font     color="red">${message}</font></b>
             </td>
         </tr>
         <tr>
@@ -61,7 +63,13 @@
         </tr>
         <tr>
             <td colspan="2" align="center">
-                <input type="submit" value="Save Account" name="btnSubmit" /> </td>
+                <c:if test="${isAddAction}">
+                    <input type="submit" value="Add Account" name="btnSubmit" />
+                </c:if>
+                <c:if test="${isEditAction}">
+                    <input type="submit" value="Update Account" name="btnSubmit" />
+                </c:if>
+            </td>
         </tr>
     </table>
 </form:form>

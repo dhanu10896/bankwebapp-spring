@@ -7,11 +7,11 @@
 <head>
     <%@ include file="../common/cssfiles.jsp"%>
     <meta charset="UTF-8">
-    <title>Hello Home </title>
+    <title>Home </title>
 </head>
 <body>
-<h2 class="hello-title">Hello</h2>
-<p>open  <a href="new">new account </a></p>
+<h2 class="hello-title">Welcome To Spring Bank</h2>
+<p>click here <a href="new"> to open new account </a></p>
 <%@ include file="../common/jsfiles.jsp"%>
 </body>
 </html>

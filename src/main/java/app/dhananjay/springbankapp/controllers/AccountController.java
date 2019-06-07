@@ -35,6 +35,8 @@ public class AccountController {
     @RequestMapping("/new")
     public String newAccount(Model model) {
         model.addAttribute("account", new Account());
+        model.addAttribute("actionMethod", "saveAccount");
+        model.addAttribute("isAddAction", true);
         return VIEW_ACCOUNT_FORM_PAGE;
     }
 
@@ -42,17 +44,47 @@ public class AccountController {
     //using hibernate validator.
     @RequestMapping(value = "/saveAccount", method = RequestMethod.POST)
     public String saveAccount(@Valid @ModelAttribute("account") Account account,
-                              BindingResult bindingResult) {
+                              BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
+            model.addAttribute("isAddAction", true);
+            model.addAttribute("actionMethod", "saveAccount");
             return VIEW_ACCOUNT_FORM_PAGE;
         } else {
-            accountService.saveAccount(account);
+            String message = "";
+            boolean flag = true;
+            try {
+                flag = accountService.saveAccount(account);
+            } catch (Exception ex) {
+                message = ex.getMessage();
+                flag = false;
+            }
+            if (!flag) {
+                model.addAttribute("isAddAction", true);
+                model.addAttribute("actionMethod", "saveAccount");
+                model.addAttribute("message", message);
+                return VIEW_ACCOUNT_FORM_PAGE;
+            }
+            model.addAttribute("account", account);
             return "redirect:/list";
-
         }
     }
 
+    //using hibernate validator.
+    @RequestMapping(value = "/updateAccount", method = RequestMethod.POST)
+    public String updateAccount(@Valid @ModelAttribute("account") Account account,
+                                BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("isEditAction", true);
+            model.addAttribute("actionMethod", "updateAccount");
+            return VIEW_ACCOUNT_FORM_PAGE;
+        } else {
+            accountService.updateAccount(account);
+            model.addAttribute("account", account);
+            return "redirect:/list";
+        }
+    }
 //    //using databinding
 //    @RequestMapping(value = "/saveAccount", method = RequestMethod.POST)
 //    public String saveAccount(Model model, Account account) {
@@ -101,14 +133,17 @@ public class AccountController {
 
     @GetMapping("/list")
     public String listAccounts(Model model) {
-        model.addAttribute("accounts",accountService.getAccounts());
+        model.addAttribute("accounts", accountService.getAccounts());
         return "list_accounts";
     }
 
     @GetMapping("/edit")
-    public String updateAccount(@RequestParam("accountNo") Integer accountNo, Model model) {
+    public String editAccount(@RequestParam("accountNo") Integer accountNo, Model model) {
         Account account = accountService.getAccount(accountNo);
         model.addAttribute("account", account);
+        model.addAttribute("isEditAction", true);
+        model.addAttribute("actionMethod", "updateAccount");
+
         return VIEW_ACCOUNT_FORM_PAGE;
     }
 
